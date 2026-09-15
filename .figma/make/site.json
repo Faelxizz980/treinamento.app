@@ -1,0 +1,10 @@
+{
+  "description": "Manage and track training programs efficiently with an intuitive interface designed for seamless scheduling, progress monitoring, and reporting.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
