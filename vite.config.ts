@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
-import siteConfiguration from './.figma/make/site.json'
+import siteConfiguration from './.figma/make/site.json' with {type: "json"}
 
 // Vite config — https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
     ],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(import.meta.dirname, './src'),
       },
     },
     optimizeDeps: {
@@ -34,17 +34,29 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',
-      port: parseInt(process.env.PORT || '8443'),
-      strictPort: true,
+      // Porta flexível: usa PORT se definido, senão deixa Vite escolher (5173 por padrão).
+      // strictPort: false permite fallback automático se a porta estiver ocupada.
+      port: process.env.PORT ? parseInt(process.env.PORT) : undefined,
+      strictPort: false,
+      // GitHub Codespaces injeta host externo (ex: *.app.github.dev) via header Host.
+      // Sem allowedHosts, Vite 8 bloqueia com "Blocked request. This host is not allowed" -> 502 no proxy.
+      allowedHosts: true,
+      hmr: process.env.CODESPACES
+        ? {
+            clientPort: 443,
+          }
+        : undefined,
       watch: {
         ignored: [
           '**/.figma/**',
-],
+        ],
       },
     },
     preview: {
       host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',
-      port: parseInt(process.env.PORT || '8443'),
+      port: process.env.PORT ? parseInt(process.env.PORT) : undefined,
+      strictPort: false,
+      allowedHosts: true,
     },
   }
 })
