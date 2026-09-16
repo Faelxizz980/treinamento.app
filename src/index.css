@@ -17,27 +17,53 @@
   --color-border: var(--border);
   --color-ring: var(--ring);
   --radius-default: var(--radius);
+  /* Nova paleta semântica */
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
 }
 
 :root {
-  --background: #F8F7F4;
-  --foreground: #0F1923;
+  /* Paleta TrainPro — Lavender / Pale Sky / Shadow / Dim / Powder */
+  --lavender: #8693AB;
+  --pale-sky: #BDD4E7;
+  --shadow: #212227;
+  --dim: #637074;
+  --powder: #AAB9CF;
+
+  /* Variáveis semânticas novas (uso preferencial) */
+  --surface: var(--powder);          /* fundo geral */
+  --surface-alt: var(--pale-sky);    /* cards / superfícies secundárias */
+  --text: var(--shadow);
+  --text-muted: var(--dim);
+  --color-primary: var(--lavender);
+
+  /* Mapeamento legado -> nova paleta (compatibilidade) */
+  --background: var(--powder);
+  --foreground: var(--shadow);
   --card: #FFFFFF;
-  --card-foreground: #0F1923;
-  --primary: #0F1923;
-  --primary-foreground: #F8F7F4;
-  --secondary: #EEF0F3;
-  --secondary-foreground: #374151;
-  --muted: #E8E9EC;
-  --muted-foreground: #6B7280;
-  --accent: #D97706;
+  --card-foreground: var(--shadow);
+  --primary: var(--lavender);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--pale-sky);
+  --secondary-foreground: var(--shadow);
+  --muted: var(--powder);
+  --muted-foreground: var(--dim);
+  --accent: var(--lavender);
   --accent-foreground: #FFFFFF;
-  --border: #E2E4E8;
-  --ring: #D97706;
-  --radius: 6px;
-  --sidebar: #0F1923;
-  --sidebar-foreground: #CBD5E1;
-  --sidebar-active: #D97706;
+  --border: #9AA8C3; /* derivado de Dim + Powder para borda visível */
+  --ring: var(--lavender);
+  --radius: 8px;
+
+  /* Header / Nav */
+  --header-bg: var(--shadow);
+  --header-fg: #E8EDF5;
+  --nav-bg: var(--pale-sky);
+  --nav-active-bg: var(--lavender);
+  --nav-active-fg: #FFFFFF;
+  --nav-hover-bg: var(--powder);
+  --nav-hover-fg: var(--shadow);
 }
 
 * {
@@ -59,11 +85,77 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Scrollbars */
+/* Scrollbars — nova paleta */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 3px; opacity: 0.6; }
+::-webkit-scrollbar-thumb:hover { background: var(--shadow); }
 
-/* Sidebar scrollbar darker */
-.sidebar-scroll::-webkit-scrollbar-thumb { background: #334155; }
+/* Hovers custom globais — transição suave */
+a, button {
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
+}
+
+/* Botão primário — hover escurece Lavender */
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover {
+  background-color: #7684A0; /* lavender escurecido ~10% */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(33,34,39,0.15);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  background-color: #697798;
+}
+
+/* Nav item hover */
+.nav-item {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.nav-item:hover {
+  background-color: var(--nav-hover-bg);
+  color: var(--nav-hover-fg);
+}
+.nav-item-active {
+  background-color: var(--nav-active-bg);
+  color: var(--nav-active-fg);
+  box-shadow: 0 1px 4px rgba(33,34,39,0.12);
+}
+.nav-item-active:hover {
+  background-color: #7684A0;
+  color: #FFFFFF;
+}
+
+/* Table row hover */
+.row-hover {
+  transition: background-color 0.15s ease;
+}
+.row-hover:hover {
+  background-color: rgba(189,212,231,0.45); /* Pale Sky suave */
+}
+
+/* Card hover */
+.card-hover {
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+.card-hover:hover {
+  box-shadow: 0 4px 16px rgba(33,34,39,0.08);
+  border-color: var(--lavender);
+  transform: translateY(-1px);
+}
+
+/* Input focus/hover */
+.input-field {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.input-field:hover {
+  border-color: var(--lavender) !important;
+}
+.input-field:focus {
+  border-color: var(--lavender) !important;
+  box-shadow: 0 0 0 3px rgba(134,147,171,0.25);
+}

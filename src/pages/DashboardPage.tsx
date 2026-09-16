@@ -3,10 +3,10 @@ import StatusBadge from "../components/StatusBadge";
 import { Users, BookOpen, GraduationCap, Award, TrendingUp, Clock } from "lucide-react";
 
 const kpiCards = [
-  { label: "Funcionários",  value: mockDashboard.quantidadeFuncionarios, icon: Users,          delta: "+3 este mês",  color: "#3B82F6" },
-  { label: "Treinamentos",  value: mockDashboard.quantidadeTreinamentos, icon: BookOpen,        delta: "2 em andamento", color: "#8B5CF6" },
-  { label: "Instrutores",   value: mockDashboard.quantidadeInstrutores,  icon: GraduationCap,  delta: "4 internos",   color: "#D97706" },
-  { label: "Certificados",  value: mockDashboard.quantidadeCertificados, icon: Award,           delta: "+12 este mês", color: "#10B981" },
+  { label: "Funcionários",  value: mockDashboard.quantidadeFuncionarios, icon: Users,          delta: "+3 este mês",  color: "#637074" },
+  { label: "Treinamentos",  value: mockDashboard.quantidadeTreinamentos, icon: BookOpen,        delta: "2 em andamento", color: "#8693AB" },
+  { label: "Instrutores",   value: mockDashboard.quantidadeInstrutores,  icon: GraduationCap,  delta: "4 internos",   color: "#212227" },
+  { label: "Certificados",  value: mockDashboard.quantidadeCertificados, icon: Award,           delta: "+12 este mês", color: "#8693AB" },
 ];
 
 function fmt(iso: string) {
@@ -30,7 +30,7 @@ export default function DashboardPage() {
       {/* KPI Cards */}
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
         {kpiCards.map(({ label, value, icon: Icon, delta, color }) => (
-          <div key={label} className="rounded-xl p-5 transition-shadow hover:shadow-sm" style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)" }}>
+          <div key={label} className="card-hover rounded-xl p-5" style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)" }}>
             <div className="flex items-center justify-between mb-4">
               <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${color}15` }}>
                 <Icon size={18} style={{ color }} />
@@ -56,7 +56,7 @@ export default function DashboardPage() {
           </div>
           <div className="divide-y" style={{ borderColor: "var(--border)" }}>
             {recentes.map(t => (
-              <div key={t.id} className="px-6 py-4 flex items-center gap-4 hover:bg-gray-50/50 transition-colors">
+              <div key={t.id} className="row-hover px-6 py-4 flex items-center gap-4">
                 <div className="w-8 h-8 rounded-md flex items-center justify-center shrink-0 font-mono text-xs font-medium"
                   style={{ backgroundColor: "var(--muted)", color: "var(--muted-foreground)" }}>
                   #{t.id}
